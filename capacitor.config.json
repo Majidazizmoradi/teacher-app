@@ -3,7 +3,11 @@
   "appName": "دفتر کلاس",
   "webDir": "www",
   "backgroundColor": "#f3f6f8",
+  "server": {
+    "url": "https://majidazizmoradi.github.io/teacher-app/",
+    "cleartext": true
+  },
   "android": {
-    "allowMixedContent": false
+    "allowMixedContent": true
   }
 }
