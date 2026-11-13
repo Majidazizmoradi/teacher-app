@@ -1,0 +1,9 @@
+{
+  "appId": "com.daftarclass.app",
+  "appName": "دفتر کلاس",
+  "webDir": "www",
+  "backgroundColor": "#f3f6f8",
+  "android": {
+    "allowMixedContent": false
+  }
+}
