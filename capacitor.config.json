@@ -1,13 +1,6 @@
 {
-  "appId": "com.daftarclass.app",
-  "appName": "دفتر کلاس",
+  "appId": "com.daftarclass.app.dev",
+  "appName": "دفتر کلاس (آزمایشی)",
   "webDir": "www",
-  "backgroundColor": "#f3f6f8",
-  "server": {
-    "url": "https://majidazizmoradi.github.io/teacher-app/",
-    "cleartext": true
-  },
-  "android": {
-    "allowMixedContent": true
-  }
+  "backgroundColor": "#f3f6f8"
 }
