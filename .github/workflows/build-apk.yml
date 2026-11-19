@@ -1,8 +1,19 @@
 name: Build APK
 on:
   workflow_dispatch:
+  push:
+    branches: [phase1-storage]
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node --test tests/all.test.js
   build:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -14,14 +25,24 @@ jobs:
           distribution: temurin
           java-version: 17
       - run: npm install
-      - run: |
-          if [ ! -d android ]; then npx cap add android; fi
+      - run: rm -rf android && npx cap add android
+      - run: npx capacitor-assets generate --android || true
       - run: npx cap sync android
-      - run: |
+      - name: Set version
+        run: |
+          sed -i "s/versionCode 1/versionCode ${{ github.run_number }}/; s/versionName \"1.0\"/versionName \"1.0.0-dev.${{ github.run_number }}\"/" android/app/build.gradle
+          grep -n "versionCode\|versionName\|applicationId" android/app/build.gradle
+      - name: Use fixed debug key
+        run: |
+          mkdir -p ~/.android
+          cp ci/debug.keystore ~/.android/debug.keystore
+      - name: Build
+        run: |
           cd android
           chmod +x gradlew
           ./gradlew assembleDebug
       - uses: actions/upload-artifact@v4
         with:
-          name: app-debug
+          name: app-debug-dev-${{ github.run_number }}
           path: android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
