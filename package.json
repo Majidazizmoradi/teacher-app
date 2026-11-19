@@ -1,9 +1,11 @@
 {
   "name": "daftar-class",
-  "version": "1.0.0",
+  "version": "1.0.0-dev",
   "private": true,
-  "description": "دفتر کلاس - نسخه اندروید",
+  "description": "دفتر کلاس - شاخه آزمایشی مرحله ۱",
   "scripts": {
+    "test": "node --test tests/all.test.js",
+    "golden": "node tests/update-golden.js",
     "sync": "cap sync android",
     "open": "cap open android",
     "icons": "capacitor-assets generate --android"
